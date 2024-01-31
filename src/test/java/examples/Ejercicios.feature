@@ -54,3 +54,18 @@ Feature: Ejercicios clase 4
     Then status 200
     * print response
     And match response.name == ""
+
+  Scenario: Caso 5 - Login unsucccessful
+    Given url 'https://reqres.in'
+    And path '/api/login'
+    And form field email = 'peter@klaven'
+    When method post
+    Then status 400
+    And match response.error == "Missing password"
+
+  Scenario: Caso 6 - Delete
+    * def id = 2
+    Given url 'https://reqres.in'
+    And path '/api/users/' + id
+    When method delete
+    Then status 204
